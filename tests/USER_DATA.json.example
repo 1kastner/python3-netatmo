@@ -1,0 +1,12 @@
+{
+    "credentials": {
+        "client_id":"03012823b3fd2e420fbf980b",
+        "client_secret":"YXNkZmFzZGYgamFzamYgbGFzIG",
+        "password":"5uP3rP45sW0rD",
+        "username":"user.email@internet.com"
+    },
+    "device": { 
+        "device_d": "70:ee:50:22:f2:4a",
+        "module_id": "02:00:00:22:d1:7c"
+    }
+}
