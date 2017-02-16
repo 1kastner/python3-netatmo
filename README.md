@@ -26,6 +26,12 @@ credentials = {
 client = netatmo.api.client.NetatmoClient()
 # tell the client's authentication your credentials
 client.authentication.credentials = credentials
+# optionally give the authentication a temporary file.
+# The tokens are then stored there for later reuse, 
+# e.g. next time you invoke this script.
+# This saves time because no new tokens have to be requested.
+# New tokens are then only requested if the old ones expire.
+client.authentication.tmpfile = "temp_auth.json"
 
 # lat/lon outline of Hamburg/Germany
 hamburg_region = {
