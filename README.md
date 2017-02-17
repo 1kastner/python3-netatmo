@@ -16,11 +16,11 @@ import netatmo
 
 # your netatmo connect developer credentials
 credentials = {
-        "client_id": "58357ea765d1c4ea7f8c8a7b",
-        "client_secret": "7akCecdr31Bbw3nhdnplGLW4vV",
-        "password": "5up3rpa55W0rd",
-        "username": "user.email@internet.com"
-    }
+    "password":"5uP3rP45sW0rD",
+    "username":"user.email@internet.com",
+    "client_id":    "03012823b3fd2e420fbf980b",
+    "client_secret":"YXNkZmFzZGYgamFzamYgbGFzIG"
+}
 
 # create an api client
 client = netatmo.api.client.NetatmoClient()
