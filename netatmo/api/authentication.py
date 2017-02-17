@@ -452,7 +452,8 @@ class Authentication(object):
 
             # check for errors
             error = tokenresponse.response.get("error")
-            if error: raise API_ERRORS.get(error)
+            if error: 
+                raise API_ERRORS.get(error, ApiResponseError(error))
 
             tokens = self.tokens.copy() # a copy of current tokens
             tokens.update(tokenresponse.response) # update with new data
@@ -486,7 +487,8 @@ class Authentication(object):
 
             # check for errors
             error = tokenresponse.response.get("error")
-            if error: raise API_ERRORS.get(error)
+            if error: 
+                raise API_ERRORS.get(error, ApiResponseError(error))
 
             tokens = self.tokens.copy() # a copy of current tokens
             tokens.update(tokenresponse.response) # update with new data
