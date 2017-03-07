@@ -44,7 +44,7 @@ hamburg_region = {
 # issue the API request
 hamburg = client.Getpublicdata(region = hamburg_region)
 # convert the response to a pandas.DataFrame
-print(hamburg.response_as_pandas_dataframe)
+print(hamburg.dataframe)
 ```
 
 output (excerpt):

@@ -100,7 +100,7 @@ class GetpublicdataResponse(ApiResponse):
     """ Class that holds the responded data of a Getstationdata request
     """
     @property
-    def response_as_pandas_dataframe(self):
+    def dataframe(self):
         """ [read only] Convert the response to a pandas.DataFrame
         Returns:
             df = pandas.DataFrame: The response converted to a DataFrame
@@ -184,7 +184,7 @@ class GetmeasureResponse(ApiResponse):
     """ Class that holds the responded data of a Getmeasure request
     """
     @property
-    def response_as_pandas_dataframe(self):
+    def dataframe(self):
         """ [read only] Convert the response to a pandas.DataFrame
         Returns:
             df = pandas.DataFrame: The response converted to a DataFrame
@@ -236,7 +236,7 @@ class GetstationsdataResponse(ApiResponse):
     """ Class that holds the responded data of a Getstationsdata request
     """
     @property
-    def response_as_pandas_dataframe(self):
+    def dataframe(self):
         """ [read only] Convert the response to a pandas.DataFrame
         Returns:
             df = pandas.DataFrame: The response converted to a DataFrame

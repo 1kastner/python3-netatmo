@@ -147,7 +147,7 @@ class ClientRequestsTest(ClientTest):
         # request with only hamburg coordinates
         res = self.client.Getpublicdata(region = HAMBURG_COORDINATES_OUTLINE)
         # check converted response class
-        self.assertIsInstance(res.response_as_pandas_dataframe,pandas.DataFrame)
+        self.assertIsInstance(res.dataframe,pandas.DataFrame)
     
     # getmeasure with correct data
     @testname("Getmeasure with correct data and only device_id")
@@ -163,7 +163,7 @@ class ClientRequestsTest(ClientTest):
             optimize = False
             )
         # check converted response class
-        self.assertIsInstance(res.response_as_pandas_dataframe,pandas.DataFrame)
+        self.assertIsInstance(res.dataframe,pandas.DataFrame)
 
     # getmeasure with correct data
     @testname("Getmeasure with correct data and device_id and module_id")
@@ -183,7 +183,7 @@ class ClientRequestsTest(ClientTest):
             optimize = False
             )
         # check converted response class
-        self.assertIsInstance(res.response_as_pandas_dataframe,pandas.DataFrame)
+        self.assertIsInstance(res.dataframe,pandas.DataFrame)
 
     # getmeasure with correct data
     @testname("Getstationsdata with correct data")
@@ -198,7 +198,7 @@ class ClientRequestsTest(ClientTest):
             device_id = DEVICE_ID,
             )
         # check converted response class
-        self.assertIsInstance(res.response_as_pandas_dataframe,pandas.DataFrame)
+        self.assertIsInstance(res.dataframe,pandas.DataFrame)
 
         
 
