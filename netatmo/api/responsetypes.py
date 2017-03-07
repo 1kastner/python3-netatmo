@@ -226,8 +226,8 @@ class GetmeasureResponse(ApiResponse):
                 df[col] = pd.to_datetime(df[col], unit="s", utc=True)
         # sort the data frame by time
         df = df.sort_values(by = "time")
-        # reset index
-        df.reset_index(inplace = True)
+        # index
+        df.set_index("time",inplace=True)
         # return the resulting DataFrame
         return df
 

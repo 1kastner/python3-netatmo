@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # system modules
 import logging
+import time
 
 # internal modules
 from .. import utils
@@ -188,6 +189,9 @@ class NetatmoClient(object):
             try: 
                 date_begin = int(date_begin)
                 if date_begin < 0: raise Exception
+                if date_begin > time.time():
+                    self.logger.warning(
+                        "Specified date_begin is in the future!")
             except:
                 raise InvalidApiInputError("date_begin must be UNIX-timestamp")
         if not date_end is None: 
