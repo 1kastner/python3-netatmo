@@ -1,54 +1,44 @@
 #!/usr/bin/env make -f
 
-SETUP.CFG = ./setup.cfg
-SETUP.CFG.BAK = ./setup.cfg.bak
-
 SETUP.PY = ./setup.py
+INIT.PY = $(shell find netatmo -maxdepth 1 -type f -name '__init__.py')
 
-SETUP.CFG.VERSION = $(shell perl -ne 'if(s/^\s*version\s*=\s*(\d+\.\d+\.\d+).*$$/$$1/g){print;exit}' $(SETUP.CFG))
-
-NETATMO_INIT.PY = ./netatmo/__init__.py
-
+VERSION = $(shell perl -ne 'if (s/^.*__version__\s*=\s*"(\d+\.\d+.\d+)".*$$/$$1/g){print;exit}' $(INIT.PY))
 
 .PHONY: all
-all: build
+all: wheel
 
 .PHONY: build
-build: $(NETATMO_INIT.PY)
+build: 
 	$(SETUP.PY) build
 
-# update the version string in the code
-$(NETATMO_INIT.PY): $(SETUP.CFG)
-	perl -pi -e 's/^(__version__\s*=\s*)("[^"]+")$$/$$1"$(SETUP.CFG.VERSION)"/g' $(NETATMO_INIT.PY)
-	
+.PHONY: wheel
+wheel:
+	$(SETUP.PY) sdist bdist_wheel
+
+.PHONY: upload
+upload: wheel tag
+	$(SETUP.PY) sdist upload -r pypi
+
+.PHONY: upload-test
+upload-test: wheel tag
+	$(SETUP.PY) sdist upload -r pypitest
+
 .PHONY: increase-patch
-increase-patch: $(SETUP.CFG) $(SETUP.CFG.BAK)
-	perl6 -p -e 's:s:g/("version"\h*"="\h*)(\d+)\.(\d+).(\d+)/{$$0}$$1\.$$2\.{$$3+1}/' < $(SETUP.CFG.BAK) > $(SETUP.CFG)
-	$(MAKE) $(NETATMO_INIT.PY)
+increase-patch: $(INIT.PY)
+	perl -pi -e 's/(__version__\s*=\s*")(\d+)\.(\d+).(\d+)(")/$$1.(join ".",$$2,$$3,$$4+1).$$5/ge' $(INIT.PY)
 
 .PHONY: increase-minor
-increase-minor: $(SETUP.CFG) $(SETUP.CFG.BAK)
-	perl6 -p -e 's:s:g/("version"\h*"="\h*)(\d+)\.(\d+).(\d+)/{$$0}$$1\.{$$2+1}\.0/' < $(SETUP.CFG.BAK) > $(SETUP.CFG)
-	$(MAKE) $(NETATMO_INIT.PY)
+increase-minor: $(INIT.PY)
+	perl -pi -e 's/(__version__\s*=\s*")(\d+)\.(\d+).(\d+)(")/$$1.(join ".",$$2,$$3+1,0).$$5/ge' $(INIT.PY)
 
 .PHONY: increase-major
-increase-major: $(SETUP.CFG) $(SETUP.CFG.BAK)
-	perl6 -p -e 's:s:g/("version"\h*"="\h*)(\d+)\.(\d+).(\d+)/{$$0}{$$1+1}\.0\.0/' < $(SETUP.CFG.BAK) > $(SETUP.CFG)
-	$(MAKE) $(NETATMO_INIT.PY)
+increase-major: $(INIT.PY)
+	perl -pi -e 's/(__version__\s*=\s*")(\d+)\.(\d+).(\d+)(")/$$1.(join ".",$$2+1,0,0).$$5/ge' $(INIT.PY)
 
-$(SETUP.CFG.BAK): $(SETUP.CFG)
-	cp $(SETUP.CFG) $(SETUP.CFG.BAK)
-
-.PHONY: clean
-clean:
-	rm -f $(SETUP.CFG.BAK)
-
-.PHONY: distclean
-distclean: clean
-	rm -rf *.egg-info
-	rm -rf build
-	rm -rf $$(find -type d -iname __pycache__)
-	rm -f $$(find -type f -iname '*.pyc')
+.PHONY: tag
+tag:
+	git tag -f v$(VERSION)
 
 .PHONY: setup-test
 setup-test:
@@ -101,3 +91,14 @@ testclientoffline:
 .PHONY: testclientofflineverbose
 testclientofflineverbose:
 	python3 -c 'import tests;tests.runtest(module=tests.client,verbose=True,offline=True)'
+
+
+.PHONY: clean
+clean:
+
+.PHONY: distclean
+distclean: clean
+	rm -rf *.egg-info
+	rm -rf build
+	rm -rf $$(find -type d -iname __pycache__)
+	rm -f $$(find -type f -iname '*.pyc')
