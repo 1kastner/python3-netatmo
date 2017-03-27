@@ -77,13 +77,10 @@ output (excerpt):
 
 ## Install
 
-Install this module via `pip3`:
+This package is on [PyPi](https://pypi.python.org). To install `netatmo`, run
 
 ```bash
-# local user library under ~/.local
-pip3 install --prefix=~/.local git+https://github.com/nobodyinperson/python3-netatmo
-# system-wide
-sudo pip3 install git+https://github.com/nobodyinperson/python3-netatm
+pip3 install --user netatmo
 ```
 
 ## Development
