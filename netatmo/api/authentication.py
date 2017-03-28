@@ -53,21 +53,21 @@ DEFAULT_EXPIRE_TIME = 10800
 EMPTY_TOKENS = { "access_token" :"", "refresh_token":"" }
 
 class Authentication(object):
+    """
+    Netatmo api Oauth2 authentication client
+
+    Args:
+        credentials (dict of str, optional): developer account credentials. 
+            Required keys: username, password, cliend_id, client_secret
+        tokens (dict of str, optional): the access and refresh token.
+            Required keys: access_token, refresh_token
+        tmpfile (str, optional): temporary file to use for tokens
+    """
     def __init__(self, 
             credentials = EMPTY_CREDENTIALS,
             tokens      = EMPTY_TOKENS,
             tmpfile     = None
             ):
-        """
-        class constructor
-
-        Args:
-            credentials (dict of str, optional): developer account credentials. 
-                Required keys: username, password, cliend_id, client_secret
-            tokens (dict of str, optional): the access and refresh token.
-                Required keys: access_token, refresh_token
-            tmpfile (str, optional): temporary file to use for tokens
-        """
         self.logger.debug("init: setting credentials...")
         self.credentials = credentials
         self.logger.debug("init: credentials set.")

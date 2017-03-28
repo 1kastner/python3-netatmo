@@ -10,6 +10,10 @@ Welcome to netatmo's documentation!
    :maxdepth: 2
    :caption: Contents:
 
+   whatsthis
+   install
+   howto
+   examples
    api/modules
 
 
