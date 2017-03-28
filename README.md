@@ -1,4 +1,7 @@
-# netatmo Python package [![Build Status](https://travis-ci.org/nobodyinperson/python3-netatmo.svg?branch=master)](https://travis-ci.org/nobodyinperson/python3-netatmo)
+# netatmo Python package 
+
+[![Build Status](https://travis-ci.org/nobodyinperson/python3-netatmo.svg?branch=master)](https://travis-ci.org/nobodyinperson/python3-netatmo)
+[![Documentation Status](http://readthedocs.org/projects/python3-netatmo/badge/?version=latest)](http://python3-netatmo.readthedocs.io/en/latest/?badge=latest)
 
 This packages provides easy access to the [netatmo](https://netatmo.com) [API](https://dev.netatmo.com).
 It is **painless** as it completely and intelligently hides the OAuth2 authentication from you. 
@@ -82,6 +85,10 @@ This package is on [PyPi](https://pypi.python.org). To install `netatmo`, run
 ```bash
 pip3 install --user netatmo
 ```
+
+## Documentation
+
+You can find detailed documentation of this package on [ReadTheDocs](https://python3-netatmo.readthedocs.io).
 
 ## Development
 
