@@ -60,12 +60,13 @@ class Authentication(object):
             ):
         """
         class constructor
-        args:
-            credentials (Optional[dict of str]): developer account credentials. 
+
+        Args:
+            credentials (dict of str, optional): developer account credentials. 
                 Required keys: username, password, cliend_id, client_secret
-            tokens (Optional[dict of str]): the access and refresh token. Required keys:
-                access_token, refresh_token
-            tmpfile (Optional[str]): temporary file to use for tokens
+            tokens (dict of str, optional): the access and refresh token.
+                Required keys: access_token, refresh_token
+            tmpfile (str, optional): temporary file to use for tokens
         """
         self.logger.debug("init: setting credentials...")
         self.credentials = credentials
@@ -208,6 +209,7 @@ class Authentication(object):
     @property
     def tokens_defined(self):
         """ check if the 'tokens' property contains non-empty tokens
+
         Returns:
             bool: True if tokens are complete, False otherwise 
         """
@@ -221,6 +223,7 @@ class Authentication(object):
     @property
     def credentials_defined(self):
         """ check if the 'credentials' property contains full credentials
+
         Returns:
             bool: True if credentials are complete, False otherwise 
         """
@@ -265,9 +268,10 @@ class Authentication(object):
     @property
     def tokens_are_up_to_date(self):
         """ check if the tokens are up to date
+
         Returns:
-            bool: True if the tokens are still valid, False if they need
-            to be updated.
+            bool: True if the tokens are still valid, False if they need to be
+                updated.
         """
         with self.no_token_getter_recursion():
             now = time.time() # current time
@@ -333,8 +337,10 @@ class Authentication(object):
     ###############
     def check_tokens(self, tokens):
         """ Check given tokens for completeness and syntax
+
         Args:
             tokens (dict of str): The tokens to check
+
         Returns:
             bool: True if tokens are complete, False otherwise
         """
@@ -347,6 +353,7 @@ class Authentication(object):
 
     def update_time(self, action):
         """ update the internal time for the token-related action 'action'
+
         Args:
             action (str): the token-related action to update the time for
         """
@@ -388,9 +395,10 @@ class Authentication(object):
     def read_tokens_from_tmpfile(self):
         """ Read tokens from the tmpfile
         The time for the 'read_tokens'-action is updated on success.
+
         Returns:
             bool: True if something was actually read from the file into the
-            tokens property, False otherwise.
+                tokens property, False otherwise.
         """
         self.logger.debug("Try reading tokens from tmpfile '{}'....".format(
             self.tmpfile))
@@ -412,9 +420,10 @@ class Authentication(object):
     def write_tokens_to_tmpfile(self):
         """ Write the current tokens to the tmpfile
         The time for the 'write_tokens'-action is updated on success.
+
         Returns:
             bool: True if something was actually written to file, False
-            otherwise.  
+                otherwise.  
         """
         with self.no_token_getter_recursion():
             self.logger.debug("Try writing tokens to tmpfile '{}'.".format(

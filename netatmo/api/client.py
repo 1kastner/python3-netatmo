@@ -13,13 +13,14 @@ from .errors import *
 
 
 class NetatmoClient(object):
+    """
+    Netatmo api client
+    
+    Args:
+        authentication (Authentication, optional): 
+            the authentication used for Oauth2 authentication
+    """
     def __init__(self, authentication = None):
-        """
-        class constructor
-        args:
-            authentication (Optional[netatmo.api.authentication.Authentication]): 
-                the authentication used for Oauth2 authentication
-        """
         self.authentication = authentication
 
 
@@ -72,21 +73,25 @@ class NetatmoClient(object):
     ###############
     def Getpublicdata(self,region,required_data=None,filter=False):
         """ Issue a Getpublicdata POST request to the netatmo server
+
         Args:
             region (dict): dict definig the desired request region. Required
                 keys: lat_ne [-85;85], lat_sw [-85;85], lon_ne [-180;180] and
                 lon_sw [-180;180] with lat_ne > lat_sw and lon_ne > lon_sw
-            required_data [Optional[str or None]]: Defaults to None which means
+            required_data (str or None, optional): Defaults to None which means
                 no filter.
-            filter [Optional (bool)]: server-side filter for stations with
+            filter (bool, optional): server-side filter for stations with
                 unusual data. Defaults to False with means no filter
+
         Returns:
             instance of GetpublicdataResponse with response data
+
         Raises:
             InvalidApiInputError or derivates if wrong input was provided
             ApiResponseError or derivates if api responded with error
+
         Returns:
-            response = GetpublicdataResponse: The api response
+            GetpublicdataResponse: The api response
         """
 
         ### Check the input ###
@@ -138,26 +143,28 @@ class NetatmoClient(object):
         """ Issue a Getmeasure POST request to the netatmo server
         Taken from API documentation: 
         https://dev.netatmo.com/dev/resources/technical/reference/common/getmeasure
+
         Args:
             device_id (str): The mac address of the device
-            module_id [Optional(str)]: The mac address of the module of
+            module_id (str, optinal): The mac address of the module of
                 interest. If not specified, returns data of the device. If
                 specified, returns data from the specified module
-            type [Optional(list of str)]: Measures interested in. List of
+            type (list of str, optional): Measures interested in. List of
                 "rain","humidity","pressure","wind" and "temperature".
-            scale [Optional(str)]: Timelapse between two measurements. "max"
+            scale (str, optional): Timelapse between two measurements. "max"
                 (every value is returned), "30min" (1 value every 30min),
                 "1hour", "3hours", "1day", "1week", "1month". Defaults to "max".
-            date_begin,date_end [Optional(int)]: UNIX-timestamp of first/last
+            date_begin,date_end (int, optional): UNIX-timestamp of first/last
                 measure to receive. Limit is 1024 measures.
-            optimize [Optional(bool)]: Determines the format of the answer.
+            optimize (bool, optional): Determines the format of the answer.
                 Default is False. For mobile apps we recommend True and False if
                 bandwidth isn't an issue as it is easier to parse.
-            real_time [Optional(bool)]: If scale different than max, timestamps
+            real_time (bool, optional): If scale different than max, timestamps
                 are by default offset + scale/2. To get exact timestamps, use
                 true. Default is false.  
+
         Returns:
-            response = GetmeasureResponse: The api response
+            GetmeasureResponse: The api response
         """
         ### Check the input ###
         # check device_id
@@ -251,12 +258,14 @@ class NetatmoClient(object):
     def Getstationsdata(self, device_id, get_favourites = False):
         """ Issue a Getstationsdata POST request to the netatmo server
         Taken from API documentation: 
+
         Args:
             device_id (str): The mac address of the device
             get_favourites (bool): To retrieve user's favorite weather stations.
                 Is converted to bool. Default is false.
+
         Returns:
-            response = GetstationsdataResponse: The api response
+            GetstationsdataResponse: The api response
         """
         ### Check the input ###
         # check device_id

@@ -1,8 +1,8 @@
 language: python
 before_install:
-    - "pip3 install --only-binary=numpy,pandas numpy pandas"
+    - "pip3 install --only-binary=numpy,pandas numpy pandas sphinx"
 python:
     - "3.5"
     - "3.6"
 install: "pip3 install --prefix=~/.local ."
-script: ./setup.py test
+script: make travis-test

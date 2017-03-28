@@ -1,12 +1,22 @@
 #!/usr/bin/env make -f
 
 SETUP.PY = ./setup.py
-INIT.PY = $(shell find netatmo -maxdepth 1 -type f -name '__init__.py')
+PACKAGE_FOLDER = netatmo
+DOCS_FOLDER = docs
+DOCS_API_FOLDER = docs/source/api
+INIT.PY = $(shell find $(PACKAGE_FOLDER) -maxdepth 1 -type f -name '__init__.py')
+RST_SOURCES = $(shell find $(DOCS_FOLDER) -type f -iname '*.rst')
+PYTHON_SOURCES = $(shell find $(PACKAGE_FOLDER) -type f -iname '*.py')
+
 
 VERSION = $(shell perl -ne 'if (s/^.*__version__\s*=\s*"(\d+\.\d+.\d+)".*$$/$$1/g){print;exit}' $(INIT.PY))
 
 .PHONY: all
-all: wheel
+all: wheel docs
+
+docs: $(PYTHON_SOURCES) $(RST_SOURCES)
+	sphinx-apidoc -M -f -o $(DOCS_API_FOLDER) $(PACKAGE_FOLDER)
+	cd $(DOCS_FOLDER) && make html
 
 .PHONY: build
 build: 
@@ -94,11 +104,15 @@ testclientofflineverbose:
 
 
 .PHONY: clean
-clean:
+clean: distclean
 
 .PHONY: distclean
 distclean: clean
 	rm -rf *.egg-info
 	rm -rf build
-	rm -rf $$(find -type d -iname __pycache__)
+	rm -rf $$(find -type d -iname '__pycache__')
 	rm -f $$(find -type f -iname '*.pyc')
+	(cd $(DOCS_FOLDER) && make clean)
+
+.PHONY: travis-test
+travis-test: wheel docs setup-test
