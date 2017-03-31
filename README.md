@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/nobodyinperson/python3-netatmo.svg?branch=master)](https://travis-ci.org/nobodyinperson/python3-netatmo)
 [![Documentation Status](http://readthedocs.org/projects/python3-netatmo/badge/?version=latest)](http://python3-netatmo.readthedocs.io/en/latest/?badge=latest)
+[![Coverage Status](https://coveralls.io/repos/github/nobodyinperson/python3-netatmo/badge.svg?branch=master)](https://coveralls.io/github/nobodyinperson/python3-netatmo?branch=master)
 
 This packages provides easy access to the [netatmo](https://netatmo.com) [API](https://dev.netatmo.com).
 It is **painless** as it completely and intelligently hides the OAuth2 authentication from you. 
