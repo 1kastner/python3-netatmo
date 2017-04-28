@@ -6,9 +6,19 @@ from setuptools import setup, find_packages
 
 from netatmo import __version__
 
+def read_file(filename):
+    with open(filename) as f:
+        return f.read()
+
 # run setup
 # take metadata from setup.cfg
 setup( 
+    name = "netatmo",
+    description = "painless access to the netatmo weather api",
+    long_descrpition = read_file("README.rst"),
+    author = "Yann Büchau",
+    author_email = "yann.buechau@web.de",
+    keywords = "netatmo, api",
     version = __version__,
     license = 'GPLv3',
     url = 'https://github.com/nobodyinperson/python3-netatmo',
