@@ -35,17 +35,20 @@ Hamburg/Germany:
         "client_secret":"YXNkZmFzZGYgamFzamYgbGFzIG"
     }
 
-    # create an api client
-    client = netatmo.api.client.NetatmoClient()
-    # tell the client's authentication your credentials
-    client.authentication.credentials = credentials
-    # optionally give the authentication a temporary file.
-    # The tokens are then stored there for later reuse, 
+    # configure the authentication
+    authentication = netatmo.api.authentication.Authentication(
+        credentials=credentials,
+        tmpfile = "temp_auth.json"
+    )
+    # providing a path to a tmpfile is optionally.
+    # If you do so, the tokens are stored there for later reuse, 
     # e.g. next time you invoke this script.
     # This saves time because no new tokens have to be requested.
     # New tokens are then only requested if the old ones expire.
-    client.authentication.tmpfile = "temp_auth.json"
 
+    # create a api client
+    client = netatmo.api.client.NetatmoClient(authentication)
+    
     # lat/lon outline of Hamburg/Germany
     hamburg_region = {
         "lat_ne" : 53.7499,
@@ -56,6 +59,7 @@ Hamburg/Germany:
 
     # issue the API request
     hamburg = client.Getpublicdata(region = hamburg_region)
+
     # convert the response to a pandas.DataFrame
     print(hamburg.dataframe)
 
